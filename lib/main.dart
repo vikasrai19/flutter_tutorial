@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'Glassmorphism/Views/GMHomePage.dart';
+import 'StateManagement/SetStateHomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: "Flutter_App",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.blue),
-      home: GMHomePage(),
+      home: SetStateHomePage(),
     );
   }
 }
