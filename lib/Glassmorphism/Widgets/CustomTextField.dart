@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_tutorial/Glassmorphism/Controllers/AuthenticationController.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final IconData prefixIcon;
   final IconData suffixIcon;
   final bool isObscure;
-  const CustomTextField({
+  final TextEditingController textController;
+  CustomTextField({
     Key key,
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
     this.isObscure = false,
+    this.textController,
   }) : super(key: key);
 
+  AuthenticationController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,6 +43,7 @@ class CustomTextField extends StatelessWidget {
           SizedBox(width: 5.0),
           Expanded(
             child: TextField(
+              controller: this.textController,
               obscureText: this.isObscure,
               style: TextStyle(
                 color: Colors.white,
@@ -55,7 +61,11 @@ class CustomTextField extends StatelessWidget {
           ),
           SizedBox(width: 5),
           this.suffixIcon != null
-              ? Icon(this.suffixIcon, color: Colors.white)
+              ? GestureDetector(
+                  onTap: () {
+                    authController.isObscure();
+                  },
+                  child: Icon(this.suffixIcon, color: Colors.white))
               : Container(),
         ],
       ),

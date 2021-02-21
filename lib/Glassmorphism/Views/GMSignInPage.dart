@@ -4,11 +4,14 @@ import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomButton.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomSphere.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomTextField.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/GlassMorphismContainer.dart';
+import 'package:flutter_tutorial/Glassmorphism/Controllers/AuthenticationController.dart';
 import 'package:get/get.dart';
 
 import 'GMSignUpPage.dart';
 
 class GMSignInPage extends StatelessWidget {
+  final AuthenticationController authController =
+      Get.put(AuthenticationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,15 +81,20 @@ class GMSignInPage extends StatelessWidget {
                         ),
                         Spacer(),
                         CustomTextField(
+                          textController: authController.email,
                           hintText: "Email",
                           prefixIcon: Icons.email,
                         ),
-                        CustomTextField(
-                          hintText: "Password",
-                          prefixIcon: Icons.email,
-                          isObscure: true,
-                          suffixIcon: Icons.remove_red_eye,
-                        ),
+                        GetBuilder<AuthenticationController>(
+                            builder: (controller) {
+                          return CustomTextField(
+                            textController: authController.password,
+                            hintText: "Password",
+                            prefixIcon: Icons.email,
+                            isObscure: controller.isTextObscure,
+                            suffixIcon: Icons.remove_red_eye,
+                          );
+                        }),
                         SizedBox(height: 10.0),
                         CustomButton(
                           buttonName: "Sign In",
