@@ -4,14 +4,13 @@ import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomButton.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomSphere.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomTextField.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/GlassMorphismContainer.dart';
-import 'package:flutter_tutorial/Glassmorphism/Controllers/AuthenticationController.dart';
+import 'package:flutter_tutorial/Glassmorphism/Controllers/SignInController.dart';
 import 'package:get/get.dart';
 
 import 'GMSignUpPage.dart';
 
 class GMSignInPage extends StatelessWidget {
-  final AuthenticationController authController =
-      Get.put(AuthenticationController());
+  final signInController = Get.put(SignInController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,18 +80,18 @@ class GMSignInPage extends StatelessWidget {
                         ),
                         Spacer(),
                         CustomTextField(
-                          textController: authController.email,
+                          controller: signInController.email,
                           hintText: "Email",
                           prefixIcon: Icons.email,
                         ),
-                        GetBuilder<AuthenticationController>(
-                            builder: (controller) {
+                        GetBuilder<SignInController>(builder: (controller) {
                           return CustomTextField(
-                            textController: authController.password,
+                            controller: signInController.password,
                             hintText: "Password",
                             prefixIcon: Icons.email,
-                            isObscure: controller.isTextObscure,
+                            isObscure: controller.isObscure,
                             suffixIcon: Icons.remove_red_eye,
+                            onTap: () => controller.setObscure(),
                           );
                         }),
                         SizedBox(height: 10.0),

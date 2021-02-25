@@ -4,10 +4,13 @@ import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomButton.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomSphere.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/CustomTextField.dart';
 import 'package:flutter_tutorial/Glassmorphism/Widgets/GlassMorphismContainer.dart';
-import 'package:flutter_tutorial/Glassmorphism/Controllers/AuthenticationController.dart';
+import 'package:flutter_tutorial/Glassmorphism/Controllers/SignUpController.dart';
 import 'package:get/get.dart';
 
 class GMSignUpPage extends StatelessWidget {
+  final signUpController = Get.put(SignUpController());
+  // final SignUpController controllerName = Get.find(); This will find the instace of
+  // That getx controller
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,20 +95,22 @@ class GMSignUpPage extends StatelessWidget {
                         ),
                         Spacer(),
                         CustomTextField(
+                          controller: signUpController.name,
                           hintText: "Name",
                           prefixIcon: Icons.person,
                         ),
                         CustomTextField(
+                          controller: signUpController.email,
                           hintText: "Email",
                           prefixIcon: Icons.email,
                         ),
-                        GetBuilder<AuthenticationController>(
-                            builder: (controller) {
+                        GetBuilder<SignUpController>(builder: (controller) {
                           return CustomTextField(
                             hintText: "Password",
                             prefixIcon: Icons.email,
-                            isObscure: controller.isTextObscure,
+                            isObscure: controller.isObscure,
                             suffixIcon: Icons.remove_red_eye,
+                            onTap: () => controller.setObscure(),
                           );
                         }),
                         SizedBox(height: 10.0),
